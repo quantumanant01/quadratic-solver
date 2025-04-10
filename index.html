@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Solver | Powered by QuantumAnant</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="quantumanant-logo.png" alt="QuantumAnant Logo" class="logo">
+            <h1>Quadratic Solver <span>by Anant Kumar</span></h1>
+            <p class="powered-by">Powered by QuantumAnant</p>
+            <div class="theme-toggle">
+                <button id="themeBtn">🌓</button>
+            </div>
+        </header>
+
+        <div class="app-container">
+            <div class="quadratic-solver">
+                <h2>Quadratic Equation Solver</h2>
+                <p class="equation-format">ax² + bx + c = 0</p>
+                
+                <div class="input-group">
+                    <div class="input-field">
+                        <label for="a">Coefficient a:</label>
+                        <input type="number" id="a" placeholder="Enter a" step="any">
+                    </div>
+                    <div class="input-field">
+                        <label for="b">Coefficient b:</label>
+                        <input type="number" id="b" placeholder="Enter b" step="any">
+                    </div>
+                    <div class="input-field">
+                        <label for="c">Coefficient c:</label>
+                        <input type="number" id="c" placeholder="Enter c" step="any">
+                    </div>
+                </div>
+
+                <div class="voice-input">
+                    <button id="voiceBtn">🎤 Voice Input</button>
+                    <div id="voiceStatus"></div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="solveBtn" class="primary">Solve Equation</button>
+                    <button id="clearBtn" class="secondary">Clear</button>
+                </div>
+
+                <div class="results" id="results">
+                    <div class="result-section">
+                        <h3>Solution</h3>
+                        <div id="roots"></div>
+                        <div id="discriminant"></div>
+                        <div id="nature"></div>
+                        <div id="vertex"></div>
+                        <div id="steps"></div>
+                    </div>
+
+                    <div class="graph-section">
+                        <canvas id="quadraticChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="export-buttons">
+                    <button id="pdfBtn" class="export">Download PDF</button>
+                    <button id="shareBtn" class="export">Share Results</button>
+                </div>
+            </div>
+
+            <div class="calculator">
+                <h2>Scientific Calculator</h2>
+                <div class="calculator-display">
+                    <div class="calculator-history" id="calcHistory"></div>
+                    <div class="calculator-input" id="calcInput">0</div>
+                </div>
+                <div class="calculator-buttons">
+                    <button class="calc-btn function" data-value="mc">MC</button>
+                    <button class="calc-btn function" data-value="mr">MR</button>
+                    <button class="calc-btn function" data-value="m+">M+</button>
+                    <button class="calc-btn function" data-value="m-">M-</button>
+                    <button class="calc-btn function" data-value="2nd">2nd</button>
+                    
+                    <button class="calc-btn function second-fn hidden" data-value="asin">sin⁻¹</button>
+                    <button class="calc-btn function second-fn hidden" data-value="acos">cos⁻¹</button>
+                    <button class="calc-btn function second-fn hidden" data-value="atan">tan⁻¹</button>
+                    <button class="calc-btn function second-fn hidden" data-value="log2">log₂</button>
+                    <button class="calc-btn function second-fn hidden" data-value="logy">logᵧ</button>
+                    
+                    <button class="calc-btn function" data-value="sin">sin</button>
+                    <button class="calc-btn function" data-value="cos">cos</button>
+                    <button class="calc-btn function" data-value="tan">tan</button>
+                    <button class="calc-btn function" data-value="log">log</button>
+                    <button class="calc-btn function" data-value="ln">ln</button>
+                    
+                    <button class="calc-btn function" data-value="(">(</button>
+                    <button class="calc-btn function" data-value=")">)</button>
+                    <button class="calc-btn function" data-value="^">^</button>
+                    <button class="calc-btn function" data-value="√">√</button>
+                    <button class="calc-btn function" data-value="C">C</button>
+                    
+                    <button class="calc-btn function" data-value="π">π</button>
+                    <button class="calc-btn function" data-value="e">e</button>
+                    <button class="calc-btn function" data-value="|x|">|x|</button>
+                    <button class="calc-btn function" data-value="!">!</button>
+                    <button class="calc-btn operator" data-value="/">÷</button>
+                    
+                    <button class="calc-btn number" data-value="7">7</button>
+                    <button class="calc-btn number" data-value="8">8</button>
+                    <button class="calc-btn number" data-value="9">9</button>
+                    <button class="calc-btn operator" data-value="*">×</button>
+                    
+                    <button class="calc-btn number" data-value="4">4</button>
+                    <button class="calc-btn number" data-value="5">5</button>
+                    <button class="calc-btn number" data-value="6">6</button>
+                    <button class="calc-btn operator" data-value="-">−</button>
+                    
+                    <button class="calc-btn number" data-value="1">1</button>
+                    <button class="calc-btn number" data-value="2">2</button>
+                    <button class="calc-btn number" data-value="3">3</button>
+                    <button class="calc-btn operator" data-value="+">+</button>
+                    
+                    <button class="calc-btn number" data-value="0">0</button>
+                    <button class="calc-btn number" data-value=".">.</button>
+                    <button class="calc-btn function" data-value="±">±</button>
+                    <button class="calc-btn operator" data-value="=">=</button>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Made with ❤️ by Anant Kumar</p>
+            <a href="https://youtube.com/@quantumanant01" target="_blank" class="youtube-link">Visit my YouTube Channel</a>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
